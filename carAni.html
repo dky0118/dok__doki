@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <title>SVG - Car Animation</title>
+    <style>
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        body {
+            overflow: hidden;
+        }
+
+        /*자동차박스*/
+        #mypath {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 1359px;
+            height: 791px;
+            /*outline: 1px solid red;*/
+            /*애니메이션*/
+            animation: goCar 4s ease-in-out 17s forwards;
+        }
+
+        /*자동차이미지*/
+        #car {
+            position: absolute;
+            top: 0;
+            opacity: 0;
+            /*투명숨기기*/
+            /*애니메이션*/
+            animation: showcar 2s ease-in-out 12s forwards,
+                brrCar .03s linear 14s infinite alternate;
+        }
+
+        /*svg선*/
+        .svg_path {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+
+        .svg_path>path {
+            fill: transparent;
+            /*채우기색-투명*/
+            stroke: #000;
+            /*선색-검정*/
+            stroke-width: 5px;
+            /*선두께*/
+            stroke-linecap: round;
+            /*선끝둥글게*/
+            stroke-dasharray: 240%;
+            /*50%를 주고 가늠!*/
+            stroke-dashoffset: 240%;
+            /*시작점밀기(공백부터)*/
+            /*애니메이션*/
+            animation: drawing 10s linear 2s forwards,
+                hideline 2s ease-in-out 12s forwards;
+        }
+
+        /*바퀴공통*/
+        .ba {
+            position: absolute;
+            width: 133px;
+            height: 133px;
+            border-radius: 50%;
+            background: url(images/car.jpg) no-repeat;
+            background-position: -249px -424px;
+            /*outline: 2px solid red;*/
+            opacity: 0;
+            /*투명숨기기*/
+        }
+
+        /*앞바퀴*/
+        .fw {
+            bottom: 235px;
+            left: 250px;
+            /*애니메이션*/
+            animation: showcar 2s ease-in-out 12s forwards,
+                brrFW .03s linear 14s infinite alternate,
+                rot 2s linear 17s infinite;
+        }
+
+        /*뒷바퀴*/
+        .bw {
+            bottom: 240px;
+            right: 272px;
+            /*애니메이션*/
+            animation: showcar 2s ease-in-out 12s forwards,
+                brrBW .03s linear 14s infinite alternate,
+                rot 2s linear 17s infinite;
+        }
+
+        /*로고*/
+        #logo {
+            position: absolute;
+            top: 50%;
+            left: 150%;
+            /*오른쪽바깥으로*/
+            transform: translate(-50%, -50%);
+            width: 25%;
+            /*애니메이션*/
+            animation: comeLogo 4s ease-in-out 17s forwards;
+        }
+
+
+
+        /* 애니메이션 키프레임 */
+
+        /*1.자동차 선그리기*/
+        @keyframes drawing {
+            to {
+                stroke-dashoffset: 0;
+            }
+        }
+
+        /*키프레임*/
+
+        /*2.자동차 나타나기*/
+        @keyframes showcar {
+            to {
+                opacity: 1;
+            }
+        }
+
+        /*키프레임*/
+
+        /*3.자동차 선 사라지기*/
+        @keyframes hideline {
+            to {
+                opacity: 0;
+            }
+        }
+
+        /*키프레임*/
+
+        /*4.자동차 시동걸기*/
+        @keyframes brrCar {
+            to {
+                top: -0.5%;
+            }
+        }
+
+        /*키프레임*/
+
+        /*5.자동차 이동하기*/
+        @keyframes goCar {
+            to {
+                left: -50%;
+            }
+        }
+
+        /*키프레임*/
+
+        /*6.앞바퀴 떨리기*/
+        @keyframes brrFW {
+            to {
+                bottom: 239px;
+            }
+        }
+
+        /*키프레임*/
+
+        /*7.뒷바퀴 떨리기*/
+        @keyframes brrBW {
+            to {
+                bottom: 244px;
+            }
+        }
+
+        /*키프레임*/
+
+        /*8.바퀴 회전하기*/
+        @keyframes rot {
+            to {
+                transform: rotate(-360deg);
+                /*반시계방향*/
+            }
+        }
+
+        /*키프레임*/
+
+        /*9.로고 들어오기*/
+        @keyframes comeLogo {
+            to {
+                left: 50%;
+            }
+        }
+
+        /*키프레임*/
+
+    </style>
+    <script>
+        // 1초후 소리넣기!
+        setTimeout(function(){
+            document.body.innerHTML += '<audio src="images/carsound.mp3" autoplay></audio>';
+        },1000);
+    </script>
+</head>
+
+<body>
+
+    <!--자동차박스-->
+    <div id="mypath">
+        <!--자동차밑그림-->
+        <img src="images/car.jpg" alt="폭스바겐" id="car">
+        <!--path 애니메이션 svg-->
+        <svg class="svg_path">
+            <path d="M109.833,469.527c0,0-2.305-33.374,12.139-38.93	c0,0,19.958-7.799,21.069-20.021c0,0,31.09-77.788,239.979-94.455l45.545-6.672c0,0,132.218-107.781,201.106-107.781	c0,0,224.443-25.557,331.109,17.777c0,0,141.108,71.11,152.22,79.999c0,0,68.89,51.111,82.223,86.667	c0,0,37.776,22.221,33.332,37.777c0,0,0.727,44.444,0.363,55.556c0,0-15.919,28.89-31.475,31.111l-91.11,6.667	c0,0-21.111,56.666-85.556,57.777c0,0-64.444,4.444-90-55.556l-524.445,10c0,0-33.333,48.011-86.667,45.714	c0,0-66.667,8.342-86.667-46.658h-93l-30.301-14.611l5.524-5.556l-5.524-34.444L109.833,469.527z"></path>
+        </svg>
+
+        <!--자동차 바퀴박스-->
+        <div class="ba fw"></div>
+        <!--앞바퀴-->
+        <div class="ba bw"></div>
+        <!--뒷바퀴-->
+
+    </div>
+
+
+    <!--로고이미지-->
+    <img src="images/volkswagen.jpg" alt="logo" id="logo">
+
+
+    <!--   
+   SVG : path 
+   - 특정 명령어를 사용하여 직선과 곡선을 자유롭게 표현하는 벡터 선 표현법
+   - 아래 명령어들은 path정보를 구하는데 사용된다.
+   
+    M = moveto : 기준점 이동
+    L = lineto : 선으로 이동
+    H = horizontal lineto : 가로선 이동
+    V = vertical lineto : 세로선 이동
+    C = curveto : 곡선이동
+    S = smooth curveto : 부드러운 곡선이동
+    Q = quadratic Bézier curve : 2차 베지어곡선
+    T = smooth quadratic Bézier curveto : 부드러운 2차 베지어곡선
+    A = elliptical Arc : 타원의 호
+    Z = closepath : 패스닫기
+    
+    ※ 모든 명령어는 대문자 혹은 소문자로 표현가능
+    대문자는 절대위치, 소문자는 상대위치임
+    
+    [ 원하는 곡선의 path 코드 얻는 법 ]
+    1. 일러스트 레이터로 벡터 곡선을 그린다.
+    2. 다른이름으로 저장하여 형식을 "SVG"를 선택한후 확인
+    3. SVG대화창이 뜨며 이때 하단의 "code"버튼을 클릭한다.
+    4. 브라우저가 구동하여 코드를 보여준다.
+    여기서 svg 태그 내부의 d 속성의 값을 복사한다.
+    5. 복사한 값은 엔터없이 한줄로 붙여서 실제 코드에 붙여넣는다.
+   -->
+
+
+
+
+
+
+</body>
+
+</html>
